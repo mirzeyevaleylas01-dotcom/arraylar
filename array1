@@ -1,0 +1,25 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+// Massivi azalma sırasına görə nizamlayan funksiya
+void sortDescending(std::vector<int>& arr) {
+    // std::greater<int>() azalma sırasını təmin edir
+    std::sort(arr.begin(), arr.end(), std::greater<int>());
+}
+
+int main() {
+    std::vector<int> myArray = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
+    
+    // Funksiyanı çağırırıq
+    sortDescending(myArray);
+
+    std::cout << "Nizamlanmış massiv: ";
+    for (int x : myArray) {
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
