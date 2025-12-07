@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // max_element, min_element üçün
+#include <cmath>     // pow, sqrt, accumulate üçün
+#include <numeric>   // std::accumulate üçün
+#include <limits>    // numeric_limits üçün
+
+void analyze_array(const std::vector<double>& arr) {
+    if (arr.size() != 25) {
+        std::cout << "Xeta: Massiv 25 elementli deyil." << std::endl;
+        return;
+    }
+
+    // Maksimum və minimumu tapmaq
+    double max_val = *std::max_element(arr.begin(), arr.end());
+    double min_val = *std::min_element(arr.begin(), arr.end());
+
+    // Ədədi orta (Arithmetic Mean)
+    double sum = std::accumulate(arr.begin(), arr.end(), 0.0);
+    double arithmetic_mean = sum / arr.size();
+
+    // Həndəsi orta (Geometric Mean)
+    double product = 1.0;
+    for (double val : arr) {
+        if (val <= 0) {
+            std::cout << "Xeta: Hendesi orta ucun menfi/sifir deyerler var." << std::endl;
+            return;
+        }
+        product *= val;
+    }
+    double geometric_mean = std::pow(product, 1.0 / arr.size());
+
+    std::cout << "Maksimum element: " << max_val << std::endl;
+    std::cout << "Minimum element: " << min_val << std::endl;
+    std::cout << "Ededi orta: " << arithmetic_mean << std::endl;
+    std::cout << "Hendesi orta: " << geometric_mean << std::endl;
+}
