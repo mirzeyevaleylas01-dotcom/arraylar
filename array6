@@ -1,0 +1,17 @@
+#include <iostream>
+#include <vector>
+
+int sum_elements_in_range(const std::vector<int>& A, int b, int c) {
+    int sum = 0;
+    for (int element : A) {
+        if (element > b && element < c) {
+            sum += element;
+        }
+    }
+    return sum;
+}
+
+// Nümunə istifadə:
+// std::vector<int> A = {1, 15, 3, 7, 2, 8, 4, 6, 10, 5};
+// int b = 3, c = 10;
+// Nəticə: 7 + 8 + 4 + 6 + 5 = 30
