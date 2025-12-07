@@ -1,0 +1,19 @@
+#include <iostream>
+#include <vector>
+#include <cmath> // pow üçün
+
+void find_squared_elements(const std::vector<double>& X, const std::vector<double>& Y) {
+    if (X.size() != Y.size()) {
+        std::cout << "Xeta: Massivlerin uzunluqlari ferqlidir." << std::endl;
+        return;
+    }
+
+    std::cout << "x[i] = y[i]^2 sertini odeyen indeksler (i) ve deyerler:" << std::endl;
+    for (int i = 0; i < X.size(); ++i) {
+        // Kvadratı yoxlayırıq
+        if (X[i] == std::pow(Y[i], 2)) {
+            std::cout << "Indeks [" << i << "]: x[" << i << "] = " << X[i] 
+                      << ", y[" << i << "] = " << Y[i] << std::endl;
+        }
+    }
+}
