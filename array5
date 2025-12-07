@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // std::max_element üçün
+
+void swap_max_elements(std::vector<int>& A, std::vector<int>& B) {
+    // 1. A massivində maksimum elementi tapın
+    // std::max_element iterator qaytarır, biz dəyəri deyil, onu indeksləyə bilərik.
+    auto max_a_it = std::max_element(A.begin(), A.end());
+    int max_a_index = std::distance(A.begin(), max_a_it);
+    int max_a_value = *max_a_it;
+
+    // 2. B massivində maksimum elementi tapın
+    auto max_b_it = std::max_element(B.begin(), B.end());
+    int max_b_index = std::distance(B.begin(), max_b_it);
+    int max_b_value = *max_b_it;
+
+    // 3. Maksimum dəyərləri dəyişdirin
+    A[max_a_index] = max_b_value;
+    B[max_b_index] = max_a_value;
+
+    // Alternativ olaraq birbaşa dəyişdirmək olar:
+    // std::swap(*max_a_it, *max_b_it); // Əgər massiv tipləri eynidirsə və funksiya dəyişən kimi ötürülübsə.
+}
+
+// Köməkçi funksiya: Massivi çap etmək üçün
+void print_vector(const std::vector<int>& arr, const std::string& name) {
+    std::cout << name << ": { ";
+    for (int i = 0; i < arr.size(); ++i) {
+        std::cout << arr[i] << (i == arr.size() - 1 ? "" : ", ");
+    }
+    std::cout << " }" << std::endl;
+}
+
+int main() {
+    std::vector<int> A = {1, 5, 3, 9, 2}; // Maksimum A: 9
+    std::vector<int> B = {10, 4, 6, 8, 7}; // Maksimum B: 10
+
+    std::cout << "Deyisiklikden evvel:" << std::endl;
+    print_vector(A, "A");
+    print_vector(B, "B");
+
+    swap_max_elements(A, B);
+
+    std::cout << "\nDeyisiklikden sonra:" << std::endl;
+    print_vector(A, "A"); // A-nın yeni görünüşü
+    print_vector(B, "B"); // B-nin yeni görünüşü
+
+    return 0;
+}
