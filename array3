@@ -1,0 +1,36 @@
+#include <vector>
+#include <iostream>
+
+int findDistanceBetweenZeros(const std::vector<int>& arr) {
+    int first = -1;
+    int last = -1;
+
+    for (int i = 0; i < arr.size(); ++i) {
+        if (arr[i] == 0) {
+            if (first == -1) {
+                first = i;
+            }
+            last = i;
+        }
+    }
+
+    if (first == -1) {
+        return -1;
+    }
+    return last - first;
+}
+
+int main() {
+    std::vector<int> myArray = {1, 2, 0, 4, 5, 0, 7, 0, 9};
+    int distance = findDistanceBetweenZeros(myArray);
+
+    if (distance != -1) {
+        std::cout << "Mesafe: " << distance << std::endl; // Çıktı: 5
+    } else {
+        std::cout << "Sifir eleman bulunamadi." << std::endl;
+    }
+
+    return 0;
+}
+
+
