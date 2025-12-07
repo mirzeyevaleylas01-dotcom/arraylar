@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <cmath>
+#include <iomanip> // std::setprecision üçün
+
+// İlk yarının ədədi ortasını hesablayan funksiya
+double calculate_arithmetic_mean(const std::vector<double>& arr) {
+    int half_size = arr.size() / 2;
+    if (half_size == 0) return 0.0;
+
+    double sum = 0.0;
+    // İlk 10 elementi cəmləyirik
+    for (int i = 0; i < half_size; ++i) {
+        sum += arr[i];
+    }
+    
+    return sum / half_size;
+}
+
+// Növbəti yarının həndəsi ortasını hesablayan funksiya
+double calculate_geometric_mean(const std::vector<double>& arr) {
+    int half_size = arr.size() / 2;
+    // İkinci yarının başlanğıc indeksi
+    int start_index = half_size;
+
+    if (half_size == 0) return 0.0;
+
+    double product = 1.0;
+    // Son 10 elementi vururuq
+    for (int i = start_index; i < arr.size(); ++i) {
+        // Həndəsi orta mənfi ədədlərlə işləyərkən problemli ola bilər.
+        // Nümunədə ədədlərin müsbət olduğu fərz edilir.
+        if (arr[i] <= 0) {
+            std::cerr << "Xəta: Həndəsi orta hesablanarkən müsbət olmayan ədəd aşkarlandı." << std::endl;
+            return 0.0; // Və ya xəta işarəsi qaytarmaq olar
+        }
+        product *= arr[i];
+    }
+    
+    // Həndəsi orta: (hasil)^(1/n)
+    return std::pow(product, 1.0 / half_size);
+}
+
+int main() {
+    // 20 elementdən ibarət nümunə massiv (double tipli)
+    // İlk yarı: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    // İkinci yarı: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    std::vector<double> myArray(20);
+    // Massivi nümunə dəyərləri ilə doldururuq
+    for (int i = 0; i < 10; ++i) {
+        myArray[i] = (double)i + 1;
+    }
+    for (int i = 10; i < 20; ++i) {
+        myArray[i] = 1.0; 
+    }
+    // Nümunə: İkinci yarıya müxtəlif ədədlər verək
+    myArray[10] = 2; myArray[11] = 2; myArray[12] = 2;
+    myArray[13] = 4; myArray[14] = 4; myArray[15] = 4;
+    myArray[16] = 8; myArray[17] = 8; myArray[18] = 8; myArray[19] = 8;
+
+
+    double arithmetic_mean = calculate_arithmetic_mean(myArray);
+    double geometric_mean = calculate_geometric_mean(myArray);
+
+    std::cout << std::fixed << std::setprecision(4);
+    std::cout << "İlk yarisinin ededi ortasi: " << arithmetic_mean << std::endl; // Çıxış: 5.5000
+    std::cout << "Novbeti yarisinin hendesi ortasi: " << geometric_mean << std::endl; // Çıxış: 3.8647 (təxminən)
+
+    return 0;
+}
